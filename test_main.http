@@ -1,11 +1,30 @@
 # Test your FastAPI endpoints
 
-GET http://127.0.0.1:8000/
+# List all files in the Azure container
+GET http://127.0.0.1:8000/storage/files
 Accept: application/json
 
 ###
 
-GET http://127.0.0.1:8000/hello/User
+# Upload a small text file to Azure Blob Storage
+POST http://127.0.0.1:8000/storage/files
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="hello.txt"
+Content-Type: text/plain
+
+Hello from HTTP client file upload.
+--WebAppBoundary--
+
+###
+
+# Download a file content by name
+GET http://127.0.0.1:8000/storage/files/hello.txt
 Accept: application/json
 
 ###
+
+# Delete a file by name
+DELETE http://127.0.0.1:8000/storage/files/hello.txt
+Accept: application/json

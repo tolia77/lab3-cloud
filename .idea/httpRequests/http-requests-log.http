@@ -1,0 +1,174 @@
+DELETE http://127.0.0.1:8000/storage/files/hello.txt
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/PyCharm 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2025-10-20T134310-1.200.json
+
+###
+
+GET http://127.0.0.1:8000/storage/files/hello.txt
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/PyCharm 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-10-20T134310.200.json
+
+###
+
+POST http://127.0.0.1:8000/storage/files
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+User-Agent: IntelliJ HTTP Client/PyCharm 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 229
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="hello.txt"
+Content-Type: text/plain
+
+< C:\Users\admin\AppData\Local\Temp\http_request_input_file7.txt
+--WebAppBoundary--
+
+<> 2025-10-20T134309-1.200.json
+
+###
+
+GET http://127.0.0.1:8000/storage/files
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/PyCharm 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-10-20T134309.200.json
+
+###
+
+DELETE http://127.0.0.1:8000/storage/files/hello.txt
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/PyCharm 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2025-10-20T134248-1.200.json
+
+###
+
+GET http://127.0.0.1:8000/storage/files/hello.txt
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/PyCharm 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-10-20T134248.200.json
+
+###
+
+POST http://127.0.0.1:8000/storage/files
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+User-Agent: IntelliJ HTTP Client/PyCharm 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 229
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="hello.txt"
+Content-Type: text/plain
+
+< C:\Users\admin\AppData\Local\Temp\http_request_input_file6.txt
+--WebAppBoundary--
+
+<> 2025-10-20T134247-3.200.json
+
+###
+
+GET http://127.0.0.1:8000/storage/files
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/PyCharm 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-10-20T134247-2.200.json
+
+###
+
+GET http://127.0.0.1:8000/hello/User
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/PyCharm 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-10-20T134247-1.200.json
+
+###
+
+GET http://127.0.0.1:8000
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/PyCharm 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-10-20T134247.200.json
+
+###
+
+DELETE http://127.0.0.1:8000/storage/files/hello.txt
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/PyCharm 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2025-10-20T134057-1.200.json
+
+###
+
+GET http://127.0.0.1:8000/storage/files/hello.txt
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/PyCharm 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-10-20T134057.200.json
+
+###
+
+POST http://127.0.0.1:8000/storage/files
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+User-Agent: IntelliJ HTTP Client/PyCharm 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 229
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="hello.txt"
+Content-Type: text/plain
+
+< C:\Users\admin\AppData\Local\Temp\http_request_input_file1.txt
+--WebAppBoundary--
+
+<> 2025-10-20T134056-1.200.json
+
+###
+
+GET http://127.0.0.1:8000/storage/files
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/PyCharm 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-10-20T134056.200.json
+
+###
+
+GET http://127.0.0.1:8000/hello/User
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/PyCharm 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-10-20T134055-1.200.json
+
+###
+
+GET http://127.0.0.1:8000
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/PyCharm 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-10-20T134055.200.json
+
+###
+

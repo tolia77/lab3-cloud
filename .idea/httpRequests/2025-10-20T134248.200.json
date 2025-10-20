@@ -1,0 +1,4 @@
+{
+  "filename": "hello.txt",
+  "content": "Hello from HTTP client file upload."
+}
