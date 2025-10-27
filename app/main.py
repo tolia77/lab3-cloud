@@ -1,6 +1,10 @@
 from fastapi import FastAPI
+from app.routers.football_router import router as football_router
 
-app = FastAPI()
+app = FastAPI(title="Football API Proxy")
+
+# mount under /football (change prefix if desired)
+app.include_router(football_router, prefix="/football")
 
 
 @app.get("/")

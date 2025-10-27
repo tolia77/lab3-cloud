@@ -1,5 +1,5 @@
 from typing import Any, Dict, Optional
-from http_client import HttpClient
+from app.http_client import HttpClient
 
 
 class FootballClient:
