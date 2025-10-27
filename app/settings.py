@@ -1,14 +1,17 @@
-from pydantic import BaseSettings, Field, SecretStr
+# ...existing code...
+from typing import Optional
+
+from pydantic import BaseSettings, Field
 
 
 class Settings(BaseSettings):
-    external_api_key: SecretStr = Field(alias="EXTERNAL_API_KEY")
+    API_SPORTS_KEY: Optional[str] = Field(None, description="x-apisports-key")
+    API_SPORTS_HOST: str = Field("v3.football.api-sports.io", description="x-apisports-host")
+    API_SPORTS_BASE_URL: str = Field("https://v3.football.api-sports.io", description="Base URL for API-Football")
+
     class Config:
-        env_file = ".env"
+        env_file = "../.env"
         env_file_encoding = "utf-8"
         case_sensitive = False
 
-
-# singleton instance to import from other modules:
 settings = Settings()
-
