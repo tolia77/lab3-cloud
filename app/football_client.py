@@ -19,13 +19,6 @@ class FootballClient:
         p.update(kwargs)
         return self.http.get("/", params=p)
 
-    # GET /teams/statistics
-    def get_team_statistics(self, params: Optional[Dict[str, Any]] = None, **kwargs) -> Dict[str, Any]:
-        # accepted params: league, season, team, date
-        p = params or {}
-        p.update(kwargs)
-        return self.http.get("/teams/statistics", params=p)
-
     # GET /teams/seasons
     def get_team_seasons(self, params: Optional[Dict[str, Any]] = None, **kwargs) -> Dict[str, Any]:
         # accepted params: team
@@ -46,3 +39,10 @@ class FootballClient:
         p = params or {}
         p.update(kwargs)
         return self.http.get("/teams", params=p)
+
+    # GET /leagues
+    def get_leagues(self, params: Optional[Dict[str, Any]] = None, **kwargs) -> Dict[str, Any]:
+        # accepted params: id, name, code, search, country, season, current, team, type, last
+        p = params or {}
+        p.update(kwargs)
+        return self.http.get("/leagues", params=p)

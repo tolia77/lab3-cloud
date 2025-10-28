@@ -60,22 +60,6 @@ def root_search(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/teams/statistics")
-def teams_statistics(
-    league: Optional[int] = Query(None),
-    season: Optional[int] = Query(None),
-    team: Optional[int] = Query(None),
-    date: Optional[str] = Query(None),
-    client: FootballClient = Depends(get_client),
-):
-    params = _clean_params(league=league, season=season, team=team, date=date)
-    try:
-        resp = client.get_team_statistics(**params)
-        return _extract_json(resp)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
 @router.get("/teams/seasons")
 def teams_seasons(
     team: int = Query(..., description="team id"),
@@ -144,5 +128,28 @@ def country_with_teams(
             country_item = country_data
 
         return {"country": country_item, "teams": teams_data}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/leagues")
+def leagues(
+    id: Optional[int] = Query(None),
+    name: Optional[str] = Query(None),
+    code: Optional[str] = Query(None),
+    search: Optional[str] = Query(None),
+    country: Optional[str] = Query(None),
+    season: Optional[int] = Query(None),
+    current: Optional[int] = Query(None),
+    team: Optional[int] = Query(None),
+    type: Optional[str] = Query(None),
+    last: Optional[int] = Query(None),
+    client: FootballClient = Depends(get_client),
+):
+    params = _clean_params(id=id, name=name, code=code, search=search, country=country,
+                           season=season, current=current, team=team, type=type, last=last)
+    try:
+        resp = client.get_leagues(**params)
+        return _extract_json(resp)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
