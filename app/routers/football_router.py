@@ -121,3 +121,28 @@ def teams(
         return _extract_json(resp)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# GET /countries/{name}/teams — combine country info + teams for that country
+@router.get("/countries/{name}/teams")
+def country_with_teams(
+    name: str,
+    client: FootballClient = Depends(get_client),
+):
+    try:
+        country_resp = client.get_countries(name=name)
+        teams_resp = client.get_teams(country=name)
+
+        country_data = _extract_json(country_resp)
+        teams_data = _extract_json(teams_resp)
+
+        country_item = None
+        if isinstance(country_data, dict) and "response" in country_data:
+            resp_list = country_data.get("response")
+            country_item = resp_list[0] if isinstance(resp_list, list) and resp_list else None
+        else:
+            country_item = country_data
+
+        return {"country": country_item, "teams": teams_data}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
