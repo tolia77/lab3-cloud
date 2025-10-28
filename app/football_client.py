@@ -40,3 +40,9 @@ class FootballClient:
         p.update(kwargs)
         return self.http.get("/players/squads", params=p)
 
+    # GET /teams
+    def get_teams(self, params: Optional[Dict[str, Any]] = None, **kwargs) -> Dict[str, Any]:
+        # accepted params: id, name, code, search, country, league, season, venue
+        p = params or {}
+        p.update(kwargs)
+        return self.http.get("/teams", params=p)

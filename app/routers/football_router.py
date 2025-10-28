@@ -25,20 +25,13 @@ def _extract_json(resp):
 
 @router.get("/countries")
 def countries(
-    id: Optional[int] = Query(None),
     name: Optional[str] = Query(None),
     code: Optional[str] = Query(None),
     search: Optional[str] = Query(None),
-    country: Optional[str] = Query(None),
-    season: Optional[int] = Query(None),
-    current: Optional[int] = Query(None),
-    team: Optional[int] = Query(None),
-    type: Optional[str] = Query(None),
-    last: Optional[int] = Query(None),
     client: FootballClient = Depends(get_client),
 ):
-    params = _clean_params(id=id, name=name, code=code, search=search, country=country,
-                           season=season, current=current, team=team, type=type, last=last)
+    # only name, code, search are accepted for /countries
+    params = _clean_params(name=name, code=code, search=search)
     try:
         resp = client.get_countries(**params)
         return _extract_json(resp)
@@ -108,3 +101,23 @@ def players_squads(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
+@router.get("/teams")
+def teams(
+    id: Optional[int] = Query(None),
+    name: Optional[str] = Query(None),
+    code: Optional[str] = Query(None),
+    search: Optional[str] = Query(None),
+    country: Optional[str] = Query(None),
+    league: Optional[int] = Query(None),
+    season: Optional[int] = Query(None),
+    venue: Optional[str] = Query(None),
+    client: FootballClient = Depends(get_client),
+):
+    params = _clean_params(id=id, name=name, code=code, search=search, country=country,
+                           league=league, season=season, venue=venue)
+    try:
+        resp = client.get_teams(**params)
+        return _extract_json(resp)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

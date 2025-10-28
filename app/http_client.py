@@ -9,11 +9,13 @@ class HttpClient:
         self.session = requests.Session()
         key = api_key or settings.API_SPORTS_KEY
         host = api_host or settings.API_SPORTS_HOST
+        print(key)
+        print(host)
         headers = {}
         if key:
-            headers["x-rapidsports-key"] = key
+            headers["x-apisports-key"] = key
         if host:
-            headers["x-rapidapi-host"] = host
+            headers["x-apisports-host"] = host
         self.session.headers.update(headers)
 
     def get(self, path: str, params: Optional[Dict[str, Any]] = None, **kwargs) -> Any:
@@ -21,4 +23,3 @@ class HttpClient:
         resp = self.session.get(url, params=params, **kwargs)
         resp.raise_for_status()
         return resp.json()
-

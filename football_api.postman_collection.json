@@ -1,0 +1,131 @@
+{
+  "info": {
+    "name": "Football API Proxy",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for all football proxy routes"
+  },
+  "item": [
+    {
+      "name": "Countries",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/football/countries?id={{id}}&name={{name}}&code={{code}}&search={{search}}&country={{country}}&season={{season}}&current={{current}}&team={{team}}&type={{type}}&last={{last}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["football", "countries"],
+          "query": [
+            { "key": "id", "value": "{{id}}" },
+            { "key": "name", "value": "{{name}}" },
+            { "key": "code", "value": "{{code}}" },
+            { "key": "search", "value": "{{search}}" },
+            { "key": "country", "value": "{{country}}" },
+            { "key": "season", "value": "{{season}}" },
+            { "key": "current", "value": "{{current}}" },
+            { "key": "team", "value": "{{team}}" },
+            { "key": "type", "value": "{{type}}" },
+            { "key": "last", "value": "{{last}}" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Root Search",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/football/?id={{id}}&name={{name}}&code={{code}}&search={{search}}&country={{country}}&league={{league}}&season={{season}}&venue={{venue}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["football", ""],
+          "query": [
+            { "key": "id", "value": "{{id}}" },
+            { "key": "name", "value": "{{name}}" },
+            { "key": "code", "value": "{{code}}" },
+            { "key": "search", "value": "{{search}}" },
+            { "key": "country", "value": "{{country}}" },
+            { "key": "league", "value": "{{league}}" },
+            { "key": "season", "value": "{{season}}" },
+            { "key": "venue", "value": "{{venue}}" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Teams Statistics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/football/teams/statistics?league={{league}}&season={{season}}&team={{team}}&date={{date}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["football", "teams", "statistics"],
+          "query": [
+            { "key": "league", "value": "{{league}}" },
+            { "key": "season", "value": "{{season}}" },
+            { "key": "team", "value": "{{team}}" },
+            { "key": "date", "value": "{{date}}" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Teams Seasons",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/football/teams/seasons?team={{team}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["football", "teams", "seasons"],
+          "query": [
+            { "key": "team", "value": "{{team}}" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Players Squads",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/football/players/squads?team={{team}}&player={{player}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["football", "players", "squads"],
+          "query": [
+            { "key": "team", "value": "{{team}}" },
+            { "key": "player", "value": "{{player}}" }
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "id", "value": "" },
+    { "key": "name", "value": "" },
+    { "key": "code", "value": "" },
+    { "key": "search", "value": "" },
+    { "key": "country", "value": "" },
+    { "key": "season", "value": "" },
+    { "key": "current", "value": "" },
+    { "key": "team", "value": "" },
+    { "key": "type", "value": "" },
+    { "key": "last", "value": "" },
+    { "key": "league", "value": "" },
+    { "key": "venue", "value": "" },
+    { "key": "date", "value": "" },
+    { "key": "player", "value": "" }
+  ]
+}
+
