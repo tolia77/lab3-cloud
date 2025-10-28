@@ -1,9 +1,15 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 
-# import your client (adjust if your import path differs)
 from app.football_client import FootballClient
-
+from app.schemas.football_schemas import (
+    ApiResponse,
+    Paging,
+    TeamsResponse,
+    CountriesResponse,
+    LeaguesResponse,
+    PlayersSquadsResponse,
+)
 
 router = APIRouter()
 
@@ -23,7 +29,7 @@ def _extract_json(resp):
     return resp
 
 
-@router.get("/countries")
+@router.get("/countries", response_model=CountriesResponse)
 def countries(
     name: Optional[str] = Query(None),
     code: Optional[str] = Query(None),
@@ -39,7 +45,7 @@ def countries(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/")
+@router.get("/", response_model=ApiResponse[Dict[str, Any]])
 def root_search(
     id: Optional[int] = Query(None),
     name: Optional[str] = Query(None),
@@ -72,7 +78,7 @@ def teams_seasons(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/players/squads")
+@router.get("/players/squads", response_model=PlayersSquadsResponse)
 def players_squads(
     team: Optional[int] = Query(None),
     player: Optional[int] = Query(None),
@@ -86,7 +92,7 @@ def players_squads(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/teams")
+@router.get("/teams", response_model=TeamsResponse)
 def teams(
     id: Optional[int] = Query(None),
     name: Optional[str] = Query(None),
@@ -108,7 +114,7 @@ def teams(
 
 
 # GET /countries/{name}/teams — combine country info + teams for that country
-@router.get("/countries/{name}/teams")
+@router.get("/countries/{name}/teams", response_model=ApiResponse[Dict[str, Any]])
 def country_with_teams(
     name: str,
     client: FootballClient = Depends(get_client),
@@ -132,7 +138,7 @@ def country_with_teams(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/leagues")
+@router.get("/leagues", response_model=LeaguesResponse)
 def leagues(
     id: Optional[int] = Query(None),
     name: Optional[str] = Query(None),
