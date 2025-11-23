@@ -20,6 +20,8 @@ services:
       - postgres
     env_file:
       - .env
+    volumes:
+      - .:/app
     environment:
       # Перевизначаємо хост БД для контейнера (ім'я сервісу 'postgres')
       PG_HOST: postgres
@@ -31,7 +33,7 @@ services:
     ports:
       - "8080:8080"
     command: >
-      sh -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8080"
+      sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8080"
 
 volumes:
   pgdata:
