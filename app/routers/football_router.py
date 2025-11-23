@@ -48,6 +48,7 @@ async def countries(
     # 1. Спроба отримати з кешу
     cached_data = await get_cache(cache_key)
     if cached_data:
+        print("FOUND IN CACHE")
         return cached_data
 
     # 2. Якщо немає в кеші - робимо запит
