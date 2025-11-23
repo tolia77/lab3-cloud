@@ -19,17 +19,3 @@ async def root():
 @app.get("/hello/{name}")
 async def say_hello(name: str):
     return {"message": f"Hello {name}"}
-
-# Функція для запуску міграцій на Render
-def run_migrations():
-    # Перевіряємо, чи існує файл alembic.ini (щоб не падало в тестах або якщо не налаштовано)
-    if os.path.exists("alembic.ini"):
-        alembic_cfg = Config("alembic.ini")
-        try:
-            command.upgrade(alembic_cfg, "head")
-            print("Migrations applied successfully.")
-        except Exception as e:
-            print(f"Error applying migrations: {e}")
-
-# Запускаємо міграції при старті (важливо для Render)
-run_migrations()
