@@ -8,7 +8,6 @@ from app.routers.favourite_router import router as favorites_router
 
 app = FastAPI(title="Football API Proxy with DB")
 
-# Підключаємо роутери
 app.include_router(football_router, prefix="/football")
 app.include_router(favorites_router, prefix="/favorites")
 

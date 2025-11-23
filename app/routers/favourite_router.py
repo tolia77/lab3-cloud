@@ -15,7 +15,6 @@ async def add_favorite_team(
         team_data: FavoriteTeamCreate,
         db: AsyncSession = Depends(get_db)
 ):
-    # Перевірка чи команда вже існує
     query = select(FavoriteTeam).where(FavoriteTeam.api_team_id == team_data.api_team_id)
     result = await db.execute(query)
     existing_team = result.scalar_one_or_none()

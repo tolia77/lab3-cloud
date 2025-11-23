@@ -23,7 +23,6 @@ def _clean_params(**kwargs) -> Dict[str, Any]:
 
 
 def _extract_json(resp):
-    # support both requests.Response and direct dict returns
     if hasattr(resp, "json") and callable(getattr(resp, "json")):
         return resp.json()
     return resp
@@ -36,7 +35,6 @@ def countries(
     search: Optional[str] = Query(None),
     client: FootballClient = Depends(get_client),
 ):
-    # only name, code, search are accepted for /countries
     params = _clean_params(name=name, code=code, search=search)
     try:
         resp = client.get_countries(**params)
@@ -113,7 +111,6 @@ def teams(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# GET /countries/{name}/teams — combine country info + teams for that country
 @router.get("/countries/{name}/teams", response_model=ApiResponse[Dict[str, Any]])
 def country_with_teams(
     name: str,

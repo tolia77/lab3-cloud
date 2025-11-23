@@ -10,7 +10,6 @@ class Settings(BaseSettings):
     API_SPORTS_BASE_URL: str = Field("https://v3.football.api-sports.io", alias="API_SPORTS_BASE_URL",
                                      description="Base URL for API-Football")
 
-    # Database Settings (PostgreSQL)
     PG_HOST: str = Field("localhost", alias="PG_HOST")
     PG_PORT: int = Field(5432, alias="PG_PORT")
     PG_USERNAME: str = Field("postgres", alias="PG_USERNAME")
@@ -18,7 +17,6 @@ class Settings(BaseSettings):
     PG_DB_NAME: str = Field("postgres", alias="PG_DB_NAME")
     PG_DB_DRIVER: str = Field("postgresql", alias="PG_DB_DRIVER")
 
-    # Internal Database URL (для Render internal connection)
     INTERNAL_DATABASE_URL: Optional[str] = Field(None, alias="INTERNAL_DATABASE_URL")
 
     @property
@@ -39,7 +37,6 @@ class Settings(BaseSettings):
     def postgres_url_sync(self) -> str:
         """Синхронне посилання для Alembic migrations"""
         if self.INTERNAL_DATABASE_URL:
-            # Для синхронного підключення (alembic) asyncpg не потрібен
             return self.INTERNAL_DATABASE_URL
 
         return (
@@ -51,7 +48,7 @@ class Settings(BaseSettings):
         env_file = ".env"
         env_file_encoding = "utf-8"
         case_sensitive = False
-        extra = "ignore"  # Ігнорувати зайві змінні
+        extra = "ignore"
 
 
 settings = Settings()

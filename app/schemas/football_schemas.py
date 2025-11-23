@@ -19,7 +19,6 @@ class ApiResponse(GenericModel, Generic[T]):
     response: List[T]
 
 
-# Teams / team+venue
 class TeamBasic(BaseModel):
     id: int
     name: str

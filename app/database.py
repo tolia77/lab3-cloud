@@ -7,14 +7,12 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 from app.settings import settings
 
-# Створення асинхронного двигуна
 engine = create_async_engine(
     settings.postgres_url,
-    echo=False,  # Встановіть True для дебагу SQL запитів
+    echo=False,
     future=True
 )
 
-# Фабрика сесій
 AsyncSessionLocal = async_sessionmaker(
     bind=engine,
     class_=AsyncSession,
@@ -23,11 +21,9 @@ AsyncSessionLocal = async_sessionmaker(
     autocommit=False
 )
 
-# Базовий клас для ORM моделей
 class Base(DeclarativeBase):
     pass
 
-# Міксін для автоматичного додавання created_at та updated_at
 class UpdatedMix:
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at: Mapped[datetime] = mapped_column(
@@ -37,7 +33,6 @@ class UpdatedMix:
         nullable=False
     )
 
-# Dependency для отримання сесії в роутерах
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
     async with AsyncSessionLocal() as session:
         try:
