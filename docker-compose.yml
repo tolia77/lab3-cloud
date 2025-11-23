@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: football_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: localuser
+      POSTGRES_PASSWORD: localpass
+      POSTGRES_DB: localdb
+    ports:
+      - "5433:5432" # Зовнішній порт 5433, щоб не конфліктувати з локальним Postgres якщо є
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: .
+    container_name: football_api
+    restart: always
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    environment:
+      # Перевизначаємо хост БД для контейнера (ім'я сервісу 'postgres')
+      PG_HOST: postgres
+      PG_PORT: 5432
+      PG_USERNAME: localuser
+      PG_PASSWORD: localpass
+      PG_DB_NAME: localdb
+      PORT: 8080
+    ports:
+      - "8080:8080"
+    command: >
+      sh -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8080"
+
+volumes:
+  pgdata:
