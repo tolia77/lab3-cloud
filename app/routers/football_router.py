@@ -28,9 +28,7 @@ def _extract_json(resp):
     return resp
 
 
-# Допоміжна функція для генерації ключа
 def generate_cache_key(prefix: str, params: Dict[str, Any]) -> str:
-    # Перетворюємо dict в рядок, наприклад: "countries:code=UA:name=Ukraine"
     param_str = ":".join([f"{k}={v}" for k, v in params.items()])
     return f"football:{prefix}:{param_str}"
 
@@ -45,18 +43,15 @@ async def countries(
     params = _clean_params(name=name, code=code, search=search)
     cache_key = generate_cache_key("countries", params)
 
-    # 1. Спроба отримати з кешу
     cached_data = await get_cache(cache_key)
     if cached_data:
         print("FOUND IN CACHE")
         return cached_data
 
-    # 2. Якщо немає в кеші - робимо запит
     try:
         resp = client.get_countries(**params)
         data = _extract_json(resp)
 
-        # 3. Зберігаємо в кеш (якщо немає помилок в даних)
         if isinstance(data, dict) and not data.get("errors"):
             await set_cache(cache_key, data)
 
