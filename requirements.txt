@@ -10,3 +10,8 @@ requests
 httpx
 redis[async]
 sentry-sdk[fastapi]
+pytest
+pytest-asyncio
+pytest-mock
+pytest-cov
+fakeredis
