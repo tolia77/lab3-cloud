@@ -1,13 +1,13 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, delete
-from typing import List
 import logging
-import sentry_sdk
+from typing import List
 
+import sentry_sdk
 from app.database import get_db
 from app.models import FavoriteTeam
 from app.schemas import FavoriteTeamCreate, FavoriteTeamResponse, FavoriteTeamUpdate
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy import delete, select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 router = APIRouter(tags=["Favorites"])
 
@@ -15,10 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 @router.post("/", response_model=FavoriteTeamResponse, status_code=status.HTTP_201_CREATED)
-async def add_favorite_team(
-        team_data: FavoriteTeamCreate,
-        db: AsyncSession = Depends(get_db)
-):
+async def add_favorite_team(team_data: FavoriteTeamCreate, db: AsyncSession = Depends(get_db)):
     logger.info(f"[FAVORITES][ADD] Adding favorite team api_team_id={team_data.api_team_id}")
     try:
         query = select(FavoriteTeam).where(FavoriteTeam.api_team_id == team_data.api_team_id)

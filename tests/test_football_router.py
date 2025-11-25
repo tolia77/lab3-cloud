@@ -1,5 +1,6 @@
+from unittest.mock import AsyncMock, MagicMock, patch
+
 import pytest
-from unittest.mock import patch, AsyncMock, MagicMock
 
 
 class TestFootballRouter:
@@ -14,7 +15,7 @@ class TestFootballRouter:
             "errors": [],
             "results": 1,
             "paging": {"current": 1, "total": 1},
-            "response": [{"name": "Ukraine", "code": "UA", "flag": "https://example.com/ua.png"}]
+            "response": [{"name": "Ukraine", "code": "UA", "flag": "https://example.com/ua.png"}],
         }
         mock_football_client.get_countries.return_value = mock_response
 
@@ -33,7 +34,7 @@ class TestFootballRouter:
             "errors": [],
             "results": 1,
             "paging": {"current": 1, "total": 1},
-            "response": [{"name": "Ukraine", "code": "UA", "flag": "https://example.com/ua.png"}]
+            "response": [{"name": "Ukraine", "code": "UA", "flag": "https://example.com/ua.png"}],
         }
 
         with patch("app.routers.football_router.get_cache", new_callable=AsyncMock) as mock_cache:
@@ -51,7 +52,7 @@ class TestFootballRouter:
             "errors": [],
             "results": 1,
             "paging": {"current": 1, "total": 1},
-            "response": [{"name": "Ukraine", "code": "UA", "flag": "https://example.com/ua.png"}]
+            "response": [{"name": "Ukraine", "code": "UA", "flag": "https://example.com/ua.png"}],
         }
         mock_football_client.get_countries.return_value = mock_response
 
@@ -71,10 +72,12 @@ class TestFootballRouter:
             "errors": [],
             "results": 1,
             "paging": {"current": 1, "total": 1},
-            "response": [{
-                "team": {"id": 33, "name": "Manchester United", "code": "MUN"},
-                "venue": {"id": 556, "name": "Old Trafford"}
-            }]
+            "response": [
+                {
+                    "team": {"id": 33, "name": "Manchester United", "code": "MUN"},
+                    "venue": {"id": 556, "name": "Old Trafford"},
+                }
+            ],
         }
         mock_football_client.get_teams.return_value = mock_response
 
@@ -93,10 +96,12 @@ class TestFootballRouter:
             "errors": [],
             "results": 1,
             "paging": {"current": 1, "total": 1},
-            "response": [{
-                "team": {"id": 33, "name": "Manchester United", "code": "MUN"},
-                "venue": {"id": 556, "name": "Old Trafford"}
-            }]
+            "response": [
+                {
+                    "team": {"id": 33, "name": "Manchester United", "code": "MUN"},
+                    "venue": {"id": 556, "name": "Old Trafford"},
+                }
+            ],
         }
 
         with patch("app.routers.football_router.get_cache", new_callable=AsyncMock) as mock_cache:
@@ -114,11 +119,13 @@ class TestFootballRouter:
             "errors": [],
             "results": 1,
             "paging": {"current": 1, "total": 1},
-            "response": [{
-                "league": {"id": 39, "name": "Premier League", "type": "League"},
-                "country": {"name": "England", "code": "GB"},
-                "seasons": []
-            }]
+            "response": [
+                {
+                    "league": {"id": 39, "name": "Premier League", "type": "League"},
+                    "country": {"name": "England", "code": "GB"},
+                    "seasons": [],
+                }
+            ],
         }
         mock_football_client.get_leagues.return_value = mock_response
 
@@ -137,7 +144,7 @@ class TestFootballRouter:
             "parameters": {"team": "33"},
             "errors": [],
             "results": 5,
-            "response": [2020, 2021, 2022, 2023, 2024]
+            "response": [2020, 2021, 2022, 2023, 2024],
         }
         mock_football_client.get_team_seasons.return_value = mock_response
 
@@ -157,10 +164,12 @@ class TestFootballRouter:
             "errors": [],
             "results": 1,
             "paging": {"current": 1, "total": 1},
-            "response": [{
-                "team": {"id": 33, "name": "Manchester United"},
-                "players": [{"id": 1, "name": "Player 1", "number": 10}]
-            }]
+            "response": [
+                {
+                    "team": {"id": 33, "name": "Manchester United"},
+                    "players": [{"id": 1, "name": "Player 1", "number": 10}],
+                }
+            ],
         }
         mock_football_client.get_players_squads.return_value = mock_response
 
@@ -180,7 +189,7 @@ class TestFootballRouter:
             "errors": [],
             "results": 1,
             "paging": {"current": 1, "total": 1},
-            "response": [{"team": {"id": 33, "name": "Manchester United"}}]
+            "response": [{"team": {"id": 33, "name": "Manchester United"}}],
         }
         mock_football_client.get_root.return_value = mock_response
 

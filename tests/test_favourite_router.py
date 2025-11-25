@@ -1,9 +1,9 @@
-import pytest
-from unittest.mock import MagicMock, AsyncMock
 from datetime import datetime
+from unittest.mock import AsyncMock, MagicMock
 
-from app.main import app
+import pytest
 from app.database import get_db
+from app.main import app
 
 
 class TestFavouriteRouter:
@@ -23,6 +23,7 @@ class TestFavouriteRouter:
 
         app.dependency_overrides[get_db] = override_get_db
         from fastapi.testclient import TestClient
+
         client = TestClient(app)
 
         response = client.get("/favorites/")
@@ -55,6 +56,7 @@ class TestFavouriteRouter:
 
         app.dependency_overrides[get_db] = override_get_db
         from fastapi.testclient import TestClient
+
         client = TestClient(app)
 
         response = client.get("/favorites/")
@@ -85,6 +87,7 @@ class TestFavouriteRouter:
 
         app.dependency_overrides[get_db] = override_get_db
         from fastapi.testclient import TestClient
+
         client = TestClient(app)
 
         response = client.post(
@@ -93,8 +96,8 @@ class TestFavouriteRouter:
                 "api_team_id": 33,
                 "name": "Manchester United",
                 "country": "England",
-                "logo_url": "https://example.com/logo.png"
-            }
+                "logo_url": "https://example.com/logo.png",
+            },
         )
         app.dependency_overrides.clear()
 
@@ -118,6 +121,7 @@ class TestFavouriteRouter:
 
         app.dependency_overrides[get_db] = override_get_db
         from fastapi.testclient import TestClient
+
         client = TestClient(app)
 
         response = client.post(
@@ -126,8 +130,8 @@ class TestFavouriteRouter:
                 "api_team_id": 33,
                 "name": "Manchester United",
                 "country": "England",
-                "logo_url": "https://example.com/logo.png"
-            }
+                "logo_url": "https://example.com/logo.png",
+            },
         )
         app.dependency_overrides.clear()
 
@@ -146,6 +150,7 @@ class TestFavouriteRouter:
 
         app.dependency_overrides[get_db] = override_get_db
         from fastapi.testclient import TestClient
+
         client = TestClient(app)
 
         response = client.delete("/favorites/33")
@@ -155,13 +160,7 @@ class TestFavouriteRouter:
 
     def test_add_favorite_team_invalid_data(self, client):
         """Test adding team with invalid data returns 422."""
-        response = client.post(
-            "/favorites/",
-            json={
-                "api_team_id": "not_a_number",
-                "name": "Manchester United"
-            }
-        )
+        response = client.post("/favorites/", json={"api_team_id": "not_a_number", "name": "Manchester United"})
         assert response.status_code == 422
 
     def test_add_favorite_team_missing_required_field(self, client):
@@ -171,7 +170,7 @@ class TestFavouriteRouter:
             json={
                 "name": "Manchester United"
                 # Missing api_team_id
-            }
+            },
         )
         assert response.status_code == 422
 

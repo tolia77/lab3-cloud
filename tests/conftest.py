@@ -1,12 +1,13 @@
+import os
+from unittest.mock import AsyncMock, MagicMock, patch
+
 import pytest
 from fastapi.testclient import TestClient
-from unittest.mock import AsyncMock, MagicMock, patch
-import os
 
 os.environ["TESTING"] = "1"
 
-from app.main import app
 from app.database import get_db
+from app.main import app
 
 
 @pytest.fixture(scope="session")
@@ -30,6 +31,7 @@ def mock_db_session():
 @pytest.fixture
 def client_with_db(mock_db_session):
     """Create test client with mocked database."""
+
     async def override_get_db():
         yield mock_db_session
 
