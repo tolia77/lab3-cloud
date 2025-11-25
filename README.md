@@ -49,4 +49,3 @@ docker-compose logs -f
 Security
 --------
 Don't commit your real `.env` file to version control. Use `.env.example` as a template.
-

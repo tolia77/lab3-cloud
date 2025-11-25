@@ -41,13 +41,19 @@ class Settings(BaseSettings):
             if "asyncpg" not in self.INTERNAL_DATABASE_URL:
                 return self.INTERNAL_DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://")
             return self.INTERNAL_DATABASE_URL
-        return f"{self.PG_DB_DRIVER}+asyncpg://{self.PG_USERNAME}:{self.PG_PASSWORD}@{self.PG_HOST}:{self.PG_PORT}/{self.PG_DB_NAME}"
+        return (
+            f"{self.PG_DB_DRIVER}+asyncpg://{self.PG_USERNAME}:{self.PG_PASSWORD}"
+            f"@{self.PG_HOST}:{self.PG_PORT}/{self.PG_DB_NAME}"
+        )
 
     @property
     def postgres_url_sync(self) -> str:
         if self.INTERNAL_DATABASE_URL:
             return self.INTERNAL_DATABASE_URL
-        return f"{self.PG_DB_DRIVER}://{self.PG_USERNAME}:{self.PG_PASSWORD}@{self.PG_HOST}:{self.PG_PORT}/{self.PG_DB_NAME}"
+        return (
+            f"{self.PG_DB_DRIVER}://{self.PG_USERNAME}:{self.PG_PASSWORD}"
+            f"@{self.PG_HOST}:{self.PG_PORT}/{self.PG_DB_NAME}"
+        )
 
     class Config:
         env_file = ".env"
