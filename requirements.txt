@@ -9,3 +9,4 @@ psycopg2-binary
 requests
 httpx
 redis[async]
+sentry-sdk[fastapi]

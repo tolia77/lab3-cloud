@@ -4,6 +4,9 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
+    # logging
+    sentry_dsn: Optional[str] = Field(None, alias="SENTRY_DSN")
+
     API_SPORTS_KEY: Optional[str] = Field(None, alias="API_SPORTS_KEY", description="x-apisports-key")
     API_SPORTS_HOST: str = Field("v3.football.api-sports.io", alias="API_SPORTS_HOST", description="x-apisports-host")
     API_SPORTS_BASE_URL: str = Field("https://v3.football.api-sports.io", alias="API_SPORTS_BASE_URL",
