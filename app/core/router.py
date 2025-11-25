@@ -1,7 +1,8 @@
-from fastapi import APIRouter, HTTPException
 import datetime
 import logging
+
 import sentry_sdk
+from fastapi import APIRouter, HTTPException
 
 router = APIRouter(prefix="/common", tags=["common"])
 
@@ -37,4 +38,3 @@ async def trigger_error():
         logger.exception("[COMMON][SENTRY-DEBUG] Division by zero error")
         sentry_sdk.capture_exception(e)
         raise HTTPException(500, "Triggered Sentry test error")
-

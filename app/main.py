@@ -1,10 +1,10 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
 
 from app.core.logging import init_sentry, setup_logging
-from app.routers.football_router import router as football_router
-from app.routers.favourite_router import router as favorites_router
 from app.core.router import router as common_router
+from app.routers.favourite_router import router as favorites_router
+from app.routers.football_router import router as football_router
+from fastapi import FastAPI
 
 
 @asynccontextmanager
@@ -20,7 +20,7 @@ app = FastAPI(
     title="Lab FastAPI Project",
     description="Lab project with FastAPI and Swagger UI",
     version="0.1.0",
-    lifespan=lifespan
+    lifespan=lifespan,
 )
 
 app.include_router(common_router)

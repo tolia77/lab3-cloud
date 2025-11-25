@@ -1,17 +1,17 @@
 import asyncio
 from logging.config import fileConfig
 
-from sqlalchemy import pool
-from sqlalchemy.engine import Connection
-from sqlalchemy.ext.asyncio import async_engine_from_config
-
 from alembic import context
+from app.database import Base
+
+# Імпортуємо моделі, щоб Alembic їх "бачив"
+from app.models import FavoriteTeam
 
 # Імпортуємо налаштування та моделі
 from app.settings import settings
-from app.database import Base
-# Імпортуємо моделі, щоб Alembic їх "бачив"
-from app.models import FavoriteTeam
+from sqlalchemy import pool
+from sqlalchemy.engine import Connection
+from sqlalchemy.ext.asyncio import async_engine_from_config
 
 config = context.config
 
@@ -21,6 +21,7 @@ if config.config_file_name is not None:
 target_metadata = Base.metadata
 
 config.set_main_option("sqlalchemy.url", settings.postgres_url)
+
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode."""

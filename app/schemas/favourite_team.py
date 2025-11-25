@@ -1,6 +1,8 @@
-from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional
+
+from pydantic import BaseModel
+
 
 class FavoriteTeamBase(BaseModel):
     api_team_id: int
@@ -9,11 +11,14 @@ class FavoriteTeamBase(BaseModel):
     logo_url: Optional[str] = None
     notes: Optional[str] = None
 
+
 class FavoriteTeamCreate(FavoriteTeamBase):
     pass
 
+
 class FavoriteTeamUpdate(BaseModel):
     notes: Optional[str] = None
+
 
 class FavoriteTeamResponse(FavoriteTeamBase):
     id: int

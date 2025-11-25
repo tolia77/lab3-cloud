@@ -1,17 +1,17 @@
-from fastapi import APIRouter, Depends, HTTPException, Query
-from typing import Optional, Dict, Any
 import logging
-import sentry_sdk
+from typing import Any, Dict, Optional
 
+import sentry_sdk
 from app.football_client import FootballClient
+from app.redis_client import get_cache, set_cache
 from app.schemas.football_schemas import (
     ApiResponse,
-    TeamsResponse,
     CountriesResponse,
     LeaguesResponse,
     PlayersSquadsResponse,
+    TeamsResponse,
 )
-from app.redis_client import get_cache, set_cache
+from fastapi import APIRouter, Depends, HTTPException, Query
 
 router = APIRouter()
 
@@ -39,10 +39,10 @@ def generate_cache_key(prefix: str, params: Dict[str, Any]) -> str:
 
 @router.get("/countries", response_model=CountriesResponse)
 async def countries(
-        name: Optional[str] = Query(None),
-        code: Optional[str] = Query(None),
-        search: Optional[str] = Query(None),
-        client: FootballClient = Depends(get_client),
+    name: Optional[str] = Query(None),
+    code: Optional[str] = Query(None),
+    search: Optional[str] = Query(None),
+    client: FootballClient = Depends(get_client),
 ):
     logger.info(f"[FOOTBALL][COUNTRIES] Get countries name={name}, code={code}, search={search}")
     params = _clean_params(name=name, code=code, search=search)
@@ -70,19 +70,20 @@ async def countries(
 
 @router.get("/", response_model=ApiResponse[Dict[str, Any]])
 async def root_search(
-        id: Optional[int] = Query(None),
-        name: Optional[str] = Query(None),
-        code: Optional[str] = Query(None),
-        search: Optional[str] = Query(None),
-        country: Optional[str] = Query(None),
-        league: Optional[int] = Query(None),
-        season: Optional[int] = Query(None),
-        venue: Optional[str] = Query(None),
-        client: FootballClient = Depends(get_client),
+    id: Optional[int] = Query(None),
+    name: Optional[str] = Query(None),
+    code: Optional[str] = Query(None),
+    search: Optional[str] = Query(None),
+    country: Optional[str] = Query(None),
+    league: Optional[int] = Query(None),
+    season: Optional[int] = Query(None),
+    venue: Optional[str] = Query(None),
+    client: FootballClient = Depends(get_client),
 ):
     logger.info(f"[FOOTBALL][ROOT] Root search id={id}, name={name}")
-    params = _clean_params(id=id, name=name, code=code, search=search, country=country,
-                           league=league, season=season, venue=venue)
+    params = _clean_params(
+        id=id, name=name, code=code, search=search, country=country, league=league, season=season, venue=venue
+    )
     cache_key = generate_cache_key("root", params)
 
     cached_data = await get_cache(cache_key)
@@ -105,8 +106,8 @@ async def root_search(
 
 @router.get("/teams/seasons")
 async def teams_seasons(
-        team: int = Query(..., description="team id"),
-        client: FootballClient = Depends(get_client),
+    team: int = Query(..., description="team id"),
+    client: FootballClient = Depends(get_client),
 ):
     logger.info(f"[FOOTBALL][TEAMS_SEASONS] Get team seasons team={team}")
     params = _clean_params(team=team)
@@ -131,9 +132,9 @@ async def teams_seasons(
 
 @router.get("/players/squads", response_model=PlayersSquadsResponse)
 async def players_squads(
-        team: Optional[int] = Query(None),
-        player: Optional[int] = Query(None),
-        client: FootballClient = Depends(get_client),
+    team: Optional[int] = Query(None),
+    player: Optional[int] = Query(None),
+    client: FootballClient = Depends(get_client),
 ):
     logger.info(f"[FOOTBALL][SQUADS] Get player squads team={team}, player={player}")
     params = _clean_params(team=team, player=player)
@@ -159,19 +160,20 @@ async def players_squads(
 
 @router.get("/teams", response_model=TeamsResponse)
 async def teams(
-        id: Optional[int] = Query(None),
-        name: Optional[str] = Query(None),
-        code: Optional[str] = Query(None),
-        search: Optional[str] = Query(None),
-        country: Optional[str] = Query(None),
-        league: Optional[int] = Query(None),
-        season: Optional[int] = Query(None),
-        venue: Optional[str] = Query(None),
-        client: FootballClient = Depends(get_client),
+    id: Optional[int] = Query(None),
+    name: Optional[str] = Query(None),
+    code: Optional[str] = Query(None),
+    search: Optional[str] = Query(None),
+    country: Optional[str] = Query(None),
+    league: Optional[int] = Query(None),
+    season: Optional[int] = Query(None),
+    venue: Optional[str] = Query(None),
+    client: FootballClient = Depends(get_client),
 ):
     logger.info(f"[FOOTBALL][TEAMS] Get teams id={id}, name={name}, country={country}")
-    params = _clean_params(id=id, name=name, code=code, search=search, country=country,
-                           league=league, season=season, venue=venue)
+    params = _clean_params(
+        id=id, name=name, code=code, search=search, country=country, league=league, season=season, venue=venue
+    )
     cache_key = generate_cache_key("teams", params)
 
     cached_data = await get_cache(cache_key)
@@ -194,21 +196,31 @@ async def teams(
 
 @router.get("/leagues", response_model=LeaguesResponse)
 async def leagues(
-        id: Optional[int] = Query(None),
-        name: Optional[str] = Query(None),
-        code: Optional[str] = Query(None),
-        search: Optional[str] = Query(None),
-        country: Optional[str] = Query(None),
-        season: Optional[int] = Query(None),
-        current: Optional[int] = Query(None),
-        team: Optional[int] = Query(None),
-        type: Optional[str] = Query(None),
-        last: Optional[int] = Query(None),
-        client: FootballClient = Depends(get_client),
+    id: Optional[int] = Query(None),
+    name: Optional[str] = Query(None),
+    code: Optional[str] = Query(None),
+    search: Optional[str] = Query(None),
+    country: Optional[str] = Query(None),
+    season: Optional[int] = Query(None),
+    current: Optional[int] = Query(None),
+    team: Optional[int] = Query(None),
+    type: Optional[str] = Query(None),
+    last: Optional[int] = Query(None),
+    client: FootballClient = Depends(get_client),
 ):
     logger.info(f"[FOOTBALL][LEAGUES] Get leagues id={id}, name={name}, country={country}")
-    params = _clean_params(id=id, name=name, code=code, search=search, country=country,
-                           season=season, current=current, team=team, type=type, last=last)
+    params = _clean_params(
+        id=id,
+        name=name,
+        code=code,
+        search=search,
+        country=country,
+        season=season,
+        current=current,
+        team=team,
+        type=type,
+        last=last,
+    )
     cache_key = generate_cache_key("leagues", params)
 
     cached_data = await get_cache(cache_key)

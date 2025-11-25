@@ -1,37 +1,28 @@
 from datetime import datetime
 from typing import AsyncGenerator
 
+from app.settings import settings
 from sqlalchemy import Column, DateTime
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-from app.settings import settings
-
-engine = create_async_engine(
-    settings.postgres_url,
-    echo=False,
-    future=True
-)
+engine = create_async_engine(settings.postgres_url, echo=False, future=True)
 
 AsyncSessionLocal = async_sessionmaker(
-    bind=engine,
-    class_=AsyncSession,
-    expire_on_commit=False,
-    autoflush=False,
-    autocommit=False
+    bind=engine, class_=AsyncSession, expire_on_commit=False, autoflush=False, autocommit=False
 )
+
 
 class Base(DeclarativeBase):
     pass
 
+
 class UpdatedMix:
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime,
-        default=datetime.utcnow,
-        onupdate=datetime.utcnow,
-        nullable=False
+        DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False
     )
+
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
     async with AsyncSessionLocal() as session:

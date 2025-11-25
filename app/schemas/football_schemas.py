@@ -1,4 +1,5 @@
-from typing import Optional, Dict, Any, List, Generic, TypeVar
+from typing import Any, Dict, Generic, List, Optional, TypeVar
+
 from pydantic import BaseModel
 from pydantic.generics import GenericModel
 
@@ -120,4 +121,3 @@ class PlayersSquadsItem(BaseModel):
 
 class PlayersSquadsResponse(ApiResponse[PlayersSquadsItem]):
     pass
-
